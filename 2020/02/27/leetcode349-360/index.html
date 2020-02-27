@@ -64,7 +64,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">921字</span>
+            <span class="post-count">877字</span>
         </span>
     </span>
 
@@ -103,85 +103,14 @@
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=584155&auto=1&height=66"></iframe>
 
 <h2 id="349：两个数组的交集"><a href="#349：两个数组的交集" class="headerlink" title="349：两个数组的交集"></a>349：两个数组的交集</h2><p><strong>描述：给定两个数组，编写一个函数来计算它们的交集。</strong></p>
-<pre><code>&#x2F;*
- * @lc app&#x3D;leetcode.cn id&#x3D;349 lang&#x3D;cpp
- *
- * [349] 两个数组的交集
- *&#x2F;
-
-&#x2F;&#x2F; @lc code&#x3D;start
-class Solution
-{
-public:
-
-    vector&lt;int&gt; intersection(vector&lt;int&gt; &amp;nums1, vector&lt;int&gt; &amp;nums2)
-    {
-        set&lt;int&gt; s1;
-        set&lt;int&gt; s2;
-        for (int i &#x3D; 0; i &lt; nums1.size(); i++)
-        {
-            s1.insert(nums1[i]);
-        }
-        for (int i &#x3D; 0; i &lt; nums2.size(); i++)
-        {
-            s2.insert(nums2[i]);
-        }
-        if (s1.size() &lt; s2.size())
-        {
-            swap(s1, s2);
-        }
-        vector&lt;int&gt; res;
-        for (int n : s2)
-        {
-            if (s1.count(n) !&#x3D; 0)
-                res.push_back(n);
-        }
-        return res;
-    }
-
-}; 
-&#x2F;&#x2F; @lc code&#x3D;end
-</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=349 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [349] 两个数组的交集</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersection</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s2;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums2.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (s1.size() &lt; s2.size())</span><br><span class="line">        &#123;</span><br><span class="line">            swap(s1, s2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : s2)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s1.count(n) != <span class="number">0</span>)</span><br><span class="line">                res.push_back(n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="350：两个数组的交集Ⅱ"><a href="#350：两个数组的交集Ⅱ" class="headerlink" title="350：两个数组的交集Ⅱ"></a>350：两个数组的交集Ⅱ</h2><p><strong>描述：给定两个数组，编写一个函数来计算它们的交集。</strong></p>
 <ul>
 <li>输出结果中的每个元素一定是唯一的。</li>
 <li>我们可以不考虑输出结果的顺序。</li>
 </ul>
-<pre><code>&#x2F;*
- * @lc app&#x3D;leetcode.cn id&#x3D;350 lang&#x3D;cpp
- *
- * [350] 两个数组的交集 II
- *&#x2F;
-
-&#x2F;&#x2F; @lc code&#x3D;start
-class Solution
-{
-public:
-
-    vector&lt;int&gt; intersect(vector&lt;int&gt; &amp;nums1, vector&lt;int&gt; &amp;nums2)
-    {
-        if (nums1.size() &gt; nums2.size())
-            swap(nums1, nums2);
-        map&lt;int, int&gt; table;
-        vector&lt;int&gt; res;
-        for (int n : nums1)
-        {
-            table[n]++;
-        }
-        for (int n : nums2)
-        {
-            if (table[n] &gt; 0)
-            {
-                res.push_back(n);
-                table[n]--;
-            }
-        }
-        return res;
-    }
-
-}; 
-&#x2F;&#x2F; @lc code&#x3D;end</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=350 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [350] 两个数组的交集 II</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersect</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums1.size() &gt; nums2.size())</span><br><span class="line">            swap(nums1, nums2);</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; table;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : nums1)</span><br><span class="line">        &#123;</span><br><span class="line">            table[n]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : nums2)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (table[n] &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                res.push_back(n);</span><br><span class="line">                table[n]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="367：有效的完全平方数"><a href="#367：有效的完全平方数" class="headerlink" title="367：有效的完全平方数"></a>367：有效的完全平方数</h2><p><strong>描述：给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。</strong></p>
 <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><blockquote>
@@ -199,109 +128,14 @@ public:
 <li>当循环退出时，返回false</li>
 </ul>
 </blockquote>
-<pre><code>&#x2F;*
- * @lc app&#x3D;leetcode.cn id&#x3D;367 lang&#x3D;cpp
- *
- * [367] 有效的完全平方数
- *&#x2F;
-
-&#x2F;&#x2F; @lc code&#x3D;start
-class Solution
-{
-public:
-
-    bool isPerfectSquare(int num)
-    {
-        if (num &lt; 2)
-            return true;
-        int left &#x3D; 2;
-        int right &#x3D; num &#x2F; 2;
-        while (left &lt;&#x3D; right)
-        {
-            long mid &#x3D; (left + right) &#x2F; 2;
-            if (mid * mid &gt; num)
-                right &#x3D; mid - 1;
-            else if (mid * mid &lt; num)
-                left &#x3D; mid + 1;
-            else
-                return true;
-        }
-        return false;
-    }
-
-}; 
-&#x2F;&#x2F; @lc code&#x3D;end</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=367 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [367] 有效的完全平方数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPerfectSquare</span><span class="params">(<span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> right = num / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (mid * mid &gt; num)</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (mid * mid &lt; num)</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="374：猜数字大小"><a href="#374：猜数字大小" class="headerlink" title="374：猜数字大小"></a>374：猜数字大小</h2><p><strong>我们正在玩一个猜数字游戏。 游戏规则如下：</strong><br><strong>我从 1 到 n 选择一个数字。 你需要猜我选择了哪个数字。每次你猜错了，我会告诉你这个数字是大了还是小了。你调用一个预先定义好的接口 guess(int num)，它会返回 3 个可能的结果（-1(小)，1(大) 或 0(猜对了)）</strong></p>
-<pre><code>&#x2F;*
- * @lc app&#x3D;leetcode.cn id&#x3D;374 lang&#x3D;cpp
- *
- * [374] 猜数字大小
- *&#x2F;
-
-&#x2F;&#x2F; @lc code&#x3D;start
-&#x2F;&#x2F; Forward declaration of guess API.
-&#x2F;&#x2F; @param num, your guess
-&#x2F;&#x2F; @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
-int guess(int num); 
-
-class Solution
-{
-public:
-
-    &#x2F;&#x2F;二分查找
-    int guessNumber(int n)
-    {
-        long left &#x3D; 1;
-        long right &#x3D; n;
-        while (left &lt;&#x3D; right)
-        {
-            long mid &#x3D; (left + right) &#x2F; 2;
-            if (guess(mid) &#x3D;&#x3D; 1)
-                left &#x3D; mid + 1;
-            else if (guess(mid) &#x3D;&#x3D; -1)
-                right &#x3D; mid - 1;
-            else
-                return mid;
-        }
-        return left;
-    }
-
-}; 
-&#x2F;&#x2F; @lc code&#x3D;end</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=374 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [374] 猜数字大小</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="comment">// Forward declaration of guess API.</span></span><br><span class="line"><span class="comment">// @param num, your guess</span></span><br><span class="line"><span class="comment">// @return -1 if my number is lower, 1 if my number is higher, otherwise return 0</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">guess</span><span class="params">(<span class="keyword">int</span> num)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment">//二分查找</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">guessNumber</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> left = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">long</span> right = n;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">long</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (guess(mid) == <span class="number">1</span>)</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (guess(mid) == <span class="number">-1</span>)</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="383：赎金信"><a href="#383：赎金信" class="headerlink" title="383：赎金信"></a>383：赎金信</h2><p><strong>描述：给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串ransom能不能由第二个字符串magazines里面的字符构成。如果可以构成，返回 true ；否则返回 false。</strong></p>
 <p><strong>(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。)</strong></p>
-<pre><code>&#x2F;*
- * @lc app&#x3D;leetcode.cn id&#x3D;383 lang&#x3D;cpp
- *
- * [383] 赎金信
- *&#x2F;
-
-&#x2F;&#x2F; @lc code&#x3D;start
-class Solution
-{
-public:
-
-    bool canConstruct(string ransomNote, string magazine)
-    {
-        if (ransomNote.length() &gt; magazine.size())
-            return false;
-        int maga[128] &#x3D; {0};
-        for (int i &#x3D; 0; i &lt; magazine.length(); i++)
-        {
-            maga[magazine[i]]++;
-        }
-        for (int i &#x3D; 0; i &lt; ransomNote.length(); i++)
-        {
-            if (!maga[ransomNote[i]]--)
-                return false;
-        }
-        return true;
-    }
-
-}; 
-&#x2F;&#x2F; @lc code&#x3D;end</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=383 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [383] 赎金信</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canConstruct</span><span class="params">(<span class="built_in">string</span> ransomNote, <span class="built_in">string</span> magazine)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ransomNote.length() &gt; magazine.size())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> maga[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; magazine.length(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            maga[magazine[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ransomNote.length(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!maga[ransomNote[i]]--)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
 
 
       
