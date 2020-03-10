@@ -107,7 +107,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A4/" data-id="ck7lnme9b0009bcl22efm9u7q" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A4/" data-id="ck7lp0q6h0009u8l2dmzvafuo" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -168,7 +168,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A3/" data-id="ck7lnme9a0008bcl2htvygp30" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A3/" data-id="ck7lp0q6g0008u8l2cihhh124" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -225,86 +225,18 @@
                                             
 
                                                 
-                                                                    <link rel="stylesheet" type="text/css" href="../selfsetting.css"></link>
+                                                    <link rel="stylesheet" type="text/css" href="../selfsetting.css"></link>
 
-<h1 id="第-3章-Java-的基本程序设计结构"><a href="#第-3章-Java-的基本程序设计结构" class="headerlink" title="第 3章 Java 的基本程序设计结构"></a>第 3章 Java 的基本程序设计结构</h1><hr>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><table>
-<thead>
-<tr>
-<th align="center">类型</th>
-<th align="center">字节数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">int</td>
-<td align="center">4</td>
-</tr>
-<tr>
-<td align="center">short</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">long</td>
-<td align="center">8</td>
-</tr>
-<tr>
-<td align="center">byte</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">float</td>
-<td align="center">4</td>
-</tr>
-<tr>
-<td align="center">double</td>
-<td align="center">8</td>
-</tr>
-<tr>
-<td align="center">char</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">boolean</td>
-<td align="center">单个boolean变量是4字节<br>boolean数组的每一个值是1字节</td>
-</tr>
-</tbody></table>
-<h4 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h4><p>在Java中，整型的范围与运行Java代码的机器无关。而C和C++则需要针对不同的处理器选择最为高效的整型。</p>
-<p>长整型数值有一个后缀L或l（如9000000000000L）。十六进制数值有一个前缀0x或0X（如0xCAFE）。八进制数值有一个前缀0（如010对应八进制中的8）。</p>
-<p>从Java7开始，加上前缀0b或0B就可以写二进制数（如0b1001对应二进制中的9）。同时还可以为数字字面量添加下划线（如0b111_0110_0100_0000_1001_0111），这些下划线只是为了让人们更易读，Java编译器会除去这些下划线。</p>
-<h4 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h4><p><strong>浮点类型用于表示有小数部分的数值。</strong>double类型表示的数值精度是float类型的两倍，绝大部分的程序都使用double类型。</p>
-<p>float类型的数值有一个后缀F或f，没有后缀F或f的浮点数值默认为double类型。当然，也可以在浮点数值后添加后缀D或d。</p>
-<h4 id="char类型"><a href="#char类型" class="headerlink" title="char类型"></a>char类型</h4><p>char类型用于表示单个字符。有些Unicode字符可以用一个char值描述。</p>
-<h4 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a>boolean类型</h4><p>boolean（布尔）类型有两个值：<strong>false</strong> 和 <strong>true</strong>，用来判定逻辑条件。整型值和布尔值之间不能进行互相转换。</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量名必须是一个以字符开头并由字符或数字构成的序列。其中，字符包括：’A’ ~ ‘Z’、’a’ ~ ‘z’、’_’、’$’或在某种语言中表示字母的任何Unicode字符。</p>
-<h4 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h4><p>声明一个变量后，必须使用赋值语句对变量进行显式初始化，不要使用未初始化的变量。</p>
-<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><p>在Java中，利用关键字 <strong>final</strong> 指示常量。关键字 <strong>final</strong> 表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。</p>
-<p>在 Java 中，经常希望某个常量可以在一个类中的多个方法中使用，通常将这些常量称为类常量。可以使用关键字 <strong>static final</strong> 设置一个类常量。</p>
-<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>在 Java 中，使用算术运算符 +、-、 *、/ 表示加、减、 乘、除运算。 当参与 / 运算的两个操作数都是整数时， 表示整数除法；否则， 表示浮点除法。 整数的求余操作（有时称为取模) 用 ％ 表示。例如，15/2=7，15%2=1 , 15.0/2=7.50。</p>
-<p>需要注意， 整数被 0 除将会产生一个异常， 而浮点数被 0 除将会得到无穷大或 NaN 结果。</p>
-<h4 id="数学函数与常量"><a href="#数学函数与常量" class="headerlink" title="数学函数与常量"></a>数学函数与常量</h4><p>在Math类中，包含了各种各样的数学函数和数学常量。</p>
-<h4 id="数值类型之间的转换"><a href="#数值类型之间的转换" class="headerlink" title="数值类型之间的转换"></a>数值类型之间的转换</h4><p>![avatar](/images/1. PNG)</p>
-<p><strong>数值类型转换的规则</strong></p>
-<ul>
-<li>如果两个操作数中有一个是 double 类型，另一个操作数就会转换为 double 类型。</li>
-<li>否则，如果其中一个操作数是 float 类型，另一个操作数将会转换为 float 类型。</li>
-<li>否则，如果其中一个操作数是 long 类型，另一个操作数将会转换为 long 类型。</li>
-<li>否则，两个操作数都将被转换为 int 类型。</li>
-</ul>
-<h4 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h4><p>在上一小节中看到，在必要的时候，int 类型的值将会自动地转换为 double 类型。但另一方面，有时也需要将 double 转换成int。在 Java 中，允许进行这种数值之间的类型转换。当然，有可能会丢失一些信息。在这种情况下，需要通过强制类型转换（cast）实现这个操作。强制类型转换的语法格式是在圆括号中给出想要转换的目标类型，后面紧跟待转换的变量名。</p>
-<h4 id="结合赋值和运算符"><a href="#结合赋值和运算符" class="headerlink" title="结合赋值和运算符"></a>结合赋值和运算符</h4><p>可以在赋值中使用二元运算符。如+=、-=、%=、^=等等。</p>
-<h4 id="自增与自减运算符"><a href="#自增与自减运算符" class="headerlink" title="自增与自减运算符"></a>自增与自减运算符</h4><p>后缀和前缀形式都会使变量值加 1 或减 1。但用在表达式中时，二者就有区别了。前缀形式会先完成加 1；而后缀形式会使用变量原来的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> m = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> n = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">2</span> * ++m;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span> * n++;</span><br></pre></td></tr></table></figure>
-
-<h4 id="关系和-boolean-运算符"><a href="#关系和-boolean-运算符" class="headerlink" title="关系和 boolean 运算符"></a>关系和 boolean 运算符</h4><p>关系运算符有==、!=、&gt;、&lt;、&gt;=、&lt;=、&amp;&amp;、||等</p>
-<p>Java支持三元操作符 <strong>? :</strong> ，遵循以下格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">condition ? expressioni : expression</span><br></pre></td></tr></table></figure>
-
-<h4 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h4><p>处理整型类型时，可以直接对组成整型数值的各个位完成操作。这意味着可以使用掩码技术得到整数中的各个位。位运算符包括：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;(&quot;and&quot;)  |(&quot;or&quot;)  ^(&quot;xor&quot;)  ~(&quot;not&quot;)</span><br></pre></td></tr></table></figure>
-                                                                        
+<p>摘要 …</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A2/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A2/" data-id="ck7lnme910004bcl2eav976gf" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A2/" data-id="ck7lp0q6n000eu8l2abzv7i7r" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -378,7 +310,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A1/" data-id="ck7lnme8y0002bcl2aecoafhh" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A1/" data-id="ck7lp0q620002u8l24osb72yg" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -453,7 +385,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A0/" data-id="ck7lnme9s000xbcl227ns8niy" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A0/" data-id="ck7lp0q660004u8l25sw900td" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -606,7 +538,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/03/leetcode475-506/" data-id="ck7lnmea0001mbcl23tud74vp" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/03/leetcode475-506/" data-id="ck7lp0q73001cu8l20r4h5ws3" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -668,7 +600,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/02/29/LeyouStore/" data-id="ck7lnme9q000rbcl21bargtwr" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/02/29/LeyouStore/" data-id="ck7lp0q6z0011u8l2dw276uax" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -825,7 +757,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/02/29/leetcode437-463/" data-id="ck7lnme9w001bbcl24nnher75" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/02/29/leetcode437-463/" data-id="ck7lp0q76001ku8l232ew9kf9" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -994,7 +926,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/02/28/leetcode389-434/" data-id="ck7lnme9v0018bcl22n6140y9" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/02/28/leetcode389-434/" data-id="ck7lp0q75001gu8l2hnymhcsp" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -1115,7 +1047,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/02/27/leetcode349-387/" data-id="ck7lnme9t0010bcl2801sf3jn" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/02/27/leetcode349-387/" data-id="ck7lp0q720018u8l2gsxi4mv5" class="article-share-link">
                                             Share
                                         </a>
                                         
