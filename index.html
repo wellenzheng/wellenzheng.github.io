@@ -103,14 +103,16 @@
                                             
 
                                                 
-                                                                    <h1 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h1><ul>
-<li>JDK：目前已更新到13，使用8以上即可</li>
-</ul>
-
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7lp0q700015u8l26gos8msk" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7lqlcpy000uqsl2evhb99lf" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -163,11 +165,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：我也不知道说什么，反正刷题就对了！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/09/leetcode594-643/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7lp0q7a001uu8l29oze8x06" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7lqlcqd001rqsl22vmrepf6" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -222,7 +229,7 @@
                                             
 
                                                 
-                                                    <p>摘要 …</p>
+                                                    <p><strong>这是摘要</strong>：我也不知道说什么，反正刷题就对了！！！</p>
                                                         
                                                             <a class="article-more-link" href="/2020/03/07/leetcode557-590/">
                                                                 Read More...
@@ -231,7 +238,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7lp0q77001nu8l2a6inh0k2" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7lqlcqc001pqsl22vzyd9si" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -288,85 +295,16 @@
                                             
 
                                                 
-                                                                    <h1 id="LeetCode-探索：发散你的思维"><a href="#LeetCode-探索：发散你的思维" class="headerlink" title="LeetCode 探索：发散你的思维"></a>LeetCode 探索：发散你的思维</h1><h2 id="507-完美数"><a href="#507-完美数" class="headerlink" title="[507] 完美数"></a>[507] 完美数</h2><p><strong>对于一个 正整数，如果它和除了它自身以外的所有正因子之和相等，我们称它为“完美数”。</strong></p>
-<p><strong>给定一个 整数 n， 如果他是完美数，返回 True，否则返回 False</strong></p>
-<blockquote>
-<p>解题思路：在 [1, sqrt(num)] 内从左往右迭代，依次求出num的因子，当 num % i == 0 时，num 的因子有两个：i 和 num / i，但注意当 i * i == num 时的情形，此时因子只有一个。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=507 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [507] 完美数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkPerfectNumber</span><span class="params">(<span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i * i &lt;= num; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (num % i == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                n += i;</span><br><span class="line">                <span class="keyword">if</span> (i * i != num)</span><br><span class="line">                    n += num / i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num == n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="509-斐波那契数"><a href="#509-斐波那契数" class="headerlink" title="[509] 斐波那契数"></a>[509] 斐波那契数</h2><p><strong>斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。给定N，计算F(N)。</strong></p>
-<blockquote>
-<p>解题思路：递归</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=509 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [509] 斐波那契数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (N == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (N == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> fib(N - <span class="number">1</span>) + fib(N - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="520-检测大写字母"><a href="#520-检测大写字母" class="headerlink" title="[520] 检测大写字母"></a>[520] 检测大写字母</h2><p><strong>给定一个单词，你需要判断单词的大写使用是否正确。</strong></p>
-<p><strong>我们定义，在以下情况时，单词的大写用法是正确的：</strong></p>
-<ul>
-<li><strong>全部字母都是大写，比如”USA”。</strong></li>
-<li><strong>单词中所有字母都不是大写，比如”leetcode”。</strong></li>
-<li><strong>如果单词不只含有一个字母，只有首字母大写， 比如 “Google”。</strong></li>
-<li><strong>否则，我们定义这个单词没有正确使用大写字母。</strong></li>
-</ul>
-<blockquote>
-<p>解题思路：只需对大写字母进行计数即可</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=520 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [520] 检测大写字母</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">detectCapitalUse</span><span class="params">(<span class="built_in">string</span> word)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> up = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : word)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isupper</span>(c))</span><br><span class="line">                up++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                low++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> up == <span class="number">0</span> || low == <span class="number">0</span> || (up == <span class="number">1</span> &amp;&amp; <span class="built_in">isupper</span>(word[<span class="number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="521-最长特殊序列-Ⅰ"><a href="#521-最长特殊序列-Ⅰ" class="headerlink" title="[521] 最长特殊序列 Ⅰ"></a>[521] 最长特殊序列 Ⅰ</h2><p><strong>给定两个字符串，你需要从这两个字符串中找出最长的特殊序列。最长特殊序列定义如下：该序列为某字符串独有的最长子序列（即不能是其他字符串的子序列）。</strong></p>
-<p><strong>子序列可以通过删去字符串中的某些字符实现，但不能改变剩余字符的相对顺序。空序列为所有字符串的子序列，任何字符串为其自身的子序列。</strong></p>
-<p><strong>输入为两个字符串，输出最长特殊序列的长度。如果不存在，则返回 -1。</strong></p>
-<blockquote>
-<p>解题思路：当a和b相等时，此时不存在最长特殊序列，返回-1；当a和b的长度不相等时，较长字符串不可能是较短字符串的子串，因此最长特殊序列则为较长字符串本身。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=521 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [521] 最长特殊序列 Ⅰ</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findLUSlength</span><span class="params">(<span class="built_in">string</span> a, <span class="built_in">string</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a == b)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> max(a.length(), b.length());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="530-二叉搜索树的最小绝对差"><a href="#530-二叉搜索树的最小绝对差" class="headerlink" title="[530] 二叉搜索树的最小绝对差"></a>[530] 二叉搜索树的最小绝对差</h2><p><strong>给定一个所有节点为非负值的二叉搜索树，求树中任意两节点的差的绝对值的最小值。</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=530 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [530] 二叉搜索树的最小绝对差</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val; </span></span><br><span class="line"><span class="comment"> *     TreeNode *left; </span></span><br><span class="line"><span class="comment"> *     TreeNode *right; </span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;; </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">travel</span><span class="params">(TreeNode *root, <span class="keyword">int</span> &amp;pre, <span class="keyword">int</span> &amp;diff)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        travel(root-&gt;left, pre, diff);</span><br><span class="line">        <span class="keyword">if</span> (pre &gt;= <span class="number">0</span>)</span><br><span class="line">            diff = min(diff, root-&gt;val - pre);</span><br><span class="line">        pre = root-&gt;val;</span><br><span class="line">        travel(root-&gt;right, pre, diff);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getMinimumDifference</span><span class="params">(TreeNode *root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> diff = INT32_MAX;</span><br><span class="line">        <span class="keyword">int</span> pre = <span class="number">-1</span>;</span><br><span class="line">        travel(root, pre, diff);</span><br><span class="line">        <span class="keyword">return</span> diff;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="532-数组中的K-diff数对"><a href="#532-数组中的K-diff数对" class="headerlink" title="[532] 数组中的K-diff数对"></a>[532] 数组中的K-diff数对</h2><p><strong>给定一个整数数组和一个整数 k, 你需要在数组里找到不同的 k-diff 数对。这里将 k-diff 数对定义为一个整数对 (i, j), 其中 i 和 j 都是数组中的数字，且两数之差的绝对值是 k.</strong></p>
-<blockquote>
-<p>解题思路：利用set的元素唯一性的特性</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=532 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [532] 数组中的K-diff数对</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPairs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">set</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; sets;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size() - <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.size(); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + k == nums[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    sets.insert(&#123;nums[i], nums[j]&#125;);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sets.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="538-把二叉搜索树转换为累加树"><a href="#538-把二叉搜索树转换为累加树" class="headerlink" title="[538] 把二叉搜索树转换为累加树"></a>[538] 把二叉搜索树转换为累加树</h2><p><strong>给定一个二叉搜索树（Binary Search Tree），把它转换成为累加树（Greater Tree)，使得每个节点的值是原来的节点值加上所有大于它的节点值之和。</strong></p>
-<blockquote>
-<p>解题思路：由BST的特性可知，右子树的值大于根节点的值，因此需要用到反序中序遍历，即先遍历右子树，后遍历根节点，最后遍历左子树，从右边开始累加起来，最后回溯的时候赋值。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=538 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [538] 把二叉搜索树转换为累加树</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val; </span></span><br><span class="line"><span class="comment"> *     TreeNode *left; </span></span><br><span class="line"><span class="comment"> *     TreeNode *right; </span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;; </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//递归方法：反序中序遍历，即先遍历右子树，再遍历根节点，最后遍历左子树</span></span><br><span class="line">    <span class="function">TreeNode *<span class="title">convertBST</span><span class="params">(TreeNode *root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        convertBST(root-&gt;right);</span><br><span class="line">        sum += root-&gt;val;</span><br><span class="line">        root-&gt;val = sum;</span><br><span class="line">        convertBST(root-&gt;left);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//迭代方法：使用栈来对树进行回溯</span></span><br><span class="line">    <span class="function">TreeNode *<span class="title">convertBST</span><span class="params">(TreeNode *root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="built_in">stack</span>&lt;TreeNode *&gt; st;</span><br><span class="line">        TreeNode *node = root;</span><br><span class="line">        <span class="keyword">while</span> (!st.empty() || node != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (node != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                st.push(node);</span><br><span class="line">                node = node-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line">            node = st.top();</span><br><span class="line">            st.pop();</span><br><span class="line">            sum += node-&gt;val;</span><br><span class="line">            node-&gt;val = sum;</span><br><span class="line">            node = node-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="541-反转字符串-II"><a href="#541-反转字符串-II" class="headerlink" title="[541] 反转字符串 II"></a>[541] 反转字符串 II</h2><p><strong>给定一个字符串和一个整数 k，你需要对从字符串开头算起的每个 2k 个字符的前k个字符进行反转。如果剩余少于 k 个字符，则将剩余的所有全部反转。如果有小于 2k 但大于或等于 k 个字符，则反转前 k 个字符，并将剩余的字符保持原样。</strong></p>
-<blockquote>
-<p>解题思路：只需要记录需要反转的子串的下标即可</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=541 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [541] 反转字符串 II</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reverseStr</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i * <span class="number">2</span> * k &lt; s.length(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> start = i * <span class="number">2</span> * k;</span><br><span class="line">            <span class="keyword">int</span> temp = (i + <span class="number">1</span>) * <span class="number">2</span> * k;</span><br><span class="line">            <span class="keyword">int</span> end = (temp + start) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (end &gt; s.length())</span><br><span class="line">                end = s.length();</span><br><span class="line">            reverse(s.begin() + start, s.begin() + end);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="543-二叉树的直径"><a href="#543-二叉树的直径" class="headerlink" title="[543] 二叉树的直径"></a>[543] 二叉树的直径</h2><p><strong>给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过根结点。</strong></p>
-<blockquote>
-<p>解题思路：任意一条路径可以被写成两个箭头（不同方向），每个箭头代表一条从某些点向下遍历到孩子节点的路径。假设我们知道对于每个节点最长箭头距离分别为 L, R，那么最优路径经过 L + R + 1 个节点。<br>按照常用方法计算一个节点的深度：max(depth of node.left, depth of node.right) + 1。在计算的同时，经过这个节点的路径长度为 1 + (depth of node.left) + (depth of node.right) 。搜索每个节点并记录这些路径经过的点数最大值count，期望长度是 count - 1。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=543 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [543] 二叉树的直径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val; </span></span><br><span class="line"><span class="comment"> *     TreeNode *left; </span></span><br><span class="line"><span class="comment"> *     TreeNode *right; </span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;; </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> dia = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">travel</span><span class="params">(TreeNode *node)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> L = travel(node-&gt;left);</span><br><span class="line">        <span class="keyword">int</span> R = travel(node-&gt;right);</span><br><span class="line">        dia = max(dia, L + R + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + max(L, R);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">diameterOfBinaryTree</span><span class="params">(TreeNode *root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        travel(root);</span><br><span class="line">        <span class="keyword">return</span> dia - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="551-学生出勤记录-I"><a href="#551-学生出勤记录-I" class="headerlink" title="[551] 学生出勤记录 I"></a>[551] 学生出勤记录 I</h2><p><strong>给定一个字符串来代表一个学生的出勤记录，这个记录仅包含以下三个字符：</strong></p>
-<ul>
-<li><strong>‘A’ : Absent，缺勤</strong></li>
-<li><strong>‘L’ : Late，迟到</strong></li>
-<li><strong>‘P’ : Present，到场</strong></li>
-<li><strong>如果一个学生的出勤记录中不超过一个’A’(缺勤)并且不超过两个连续的’L’(迟到), 那么这个学生会被奖赏。</strong></li>
-</ul>
-<p><strong>你需要根据这个学生的出勤记录判断他是否会被奖赏。</strong></p>
-<blockquote>
-<p>解题思路：首先记录A的数量，其次记录连续的L的数量，当遇到连续的L但其数量小于等于2时，将其置为0重新计数</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @lc app=leetcode.cn id=551 lang=cpp</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * [551] 学生出勤记录 I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @lc code=start</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkRecord</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> A = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> L = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">'A'</span>)</span><br><span class="line">                A++;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">'L'</span>)</span><br><span class="line">                L++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (L &lt;= <span class="number">2</span>)</span><br><span class="line">                L = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> A &lt;= <span class="number">1</span> &amp;&amp; L &lt;= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"><span class="comment">// @lc code=end</span></span><br></pre></td></tr></table></figure>
-
-
-                                                                        
+                                                    <p><strong>这是摘要</strong>：我也不知道说什么，反正刷题就对了！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/06/leetcode507-551/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7lp0q79001su8l277986tgp" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7lqlcqa001lqsl234q866p8" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -423,50 +361,16 @@
                                             
 
                                                 
-                                                                    <h1 id="第一章-视觉计算中的数据"><a href="#第一章-视觉计算中的数据" class="headerlink" title="第一章 视觉计算中的数据"></a>第一章 视觉计算中的数据</h1><h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
-<li><p>数据空间：由n维属性和m个元素组成的数据集所构成的多维信息空间</p>
-</li>
-<li><p>数据开发：指利用算法和工具对数据进行定量的推演和计算</p>
-</li>
-<li><p>数据分析：指对多维数据进行切片、块、旋转等动作剖析数据，从而能多角度多方面观察数据</p>
-</li>
-<li><p>数据可视化：指将大型数据集中的数据以图像形式表示，并利用数据分析和开发工具发现其中未知信息的处理过程</p>
-</li>
-<li><p>可视化算法与技术方法</p>
-</li>
-<li><p>立体可视化</p>
-</li>
-<li><p>信息可视化</p>
-</li>
-<li><p>多分辨率方法</p>
-</li>
-<li><p>建模技术方法</p>
-</li>
-<li><p>交互技术方法与体系架构</p>
-</li>
-</ul>
-<h2 id="数据离散化"><a href="#数据离散化" class="headerlink" title="数据离散化"></a>数据离散化</h2><h3 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h3><ul>
-<li>均匀采样：指将一副二维连续图像 <strong>(f,x,y)</strong> 的连续二位图像平面在x方向和y方向上进行等间距划分。从而将该二维图像平面划分为 <strong>M * N</strong> 个网络，并且各网络中心点的位置与一堆是证书表示的笛卡尔坐标 <strong>(i,j)</strong> 相对于的过程。</li>
-</ul>
-<h3 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h3><h2 id="数据表示"><a href="#数据表示" class="headerlink" title="数据表示"></a>数据表示</h2><h3 id="时域（空域）表示"><a href="#时域（空域）表示" class="headerlink" title="时域（空域）表示"></a>时域（空域）表示</h3><p><strong>普通音频数据：</strong>$A(t)=sin(t)+\frac{1}{2}sin(2t)$</p>
-<h3 id="频域表示"><a href="#频域表示" class="headerlink" title="频域表示"></a>频域表示</h3><p><strong>频域：将信号堪称一组更加基础的信号（如正余弦波）的混合（如线性组合）</strong></p>
-<p><strong>信号可以表示为基础信号组合成原始信号的组合系数</strong></p>
-<p>$$c(t) = \sum_{i=1}^{\infty} a_icos(f_i+p_i)$$</p>
-<h3 id="几何数据"><a href="#几何数据" class="headerlink" title="几何数据"></a>几何数据</h3><ul>
-<li>显示表示</li>
-<li>隐式表示</li>
-<li>参数化表示</li>
-</ul>
-<p>在几何数据的离散化表示中，不同于解析表示。一个几何实体用一组其他几何实体的集合表示。（如一个二位正方形可以定义为二位空间中一组线的表示）</p>
-<p>构成网格的实体（如线、三角形或四边形）我们称为<strong>基元</strong></p>
-<h2 id="噪声"><a href="#噪声" class="headerlink" title="噪声"></a>噪声</h2><h3 id="随机噪声"><a href="#随机噪声" class="headerlink" title="随机噪声"></a>随机噪声</h3><p><strong>低通滤波</strong>是去除数据中的随机噪声的一种常用技术。</p>
-<h3 id="椒盐噪声"><a href="#椒盐噪声" class="headerlink" title="椒盐噪声"></a>椒盐噪声</h3><p><strong>中值滤波器</strong>或者其他<strong>顺序统计滤波器能够较好地处理这样的异常值</strong></p>
-<p>采用<strong>陷波滤波器</strong>去除频域噪声</p>
-
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/05/MachineVision-1/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7lp0q6x000xu8l2gauoaeo3" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7lqlcq10010qsl22ubya8va" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -523,11 +427,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" data-id="ck7lp0q6s000ou8l2ect89onj" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" data-id="ck7lqlcpx000rqsl25a37czg0" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -584,11 +493,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A8/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A8/" data-id="ck7lp0q6t000ru8l215p0hlkp" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A8/" data-id="ck7lqlcpu000oqsl2972qfwef" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -645,11 +559,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A7/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A7/" data-id="ck7lp0q6o000gu8l25hff7t66" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A7/" data-id="ck7lqlcpq000gqsl21rv11mvi" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -706,11 +625,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A6/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A6/" data-id="ck7lp0q6q000lu8l2e3381w3e" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A6/" data-id="ck7lqlcps000lqsl2dzciczsf" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -767,11 +691,16 @@
                                             
 
                                                 
-                                                                    
-                                                                        
+                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A5/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A5/" data-id="ck7lp0q6j000au8l23epc4exh" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A5/" data-id="ck7lqlcpp000eqsl29vhfc1ra" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -852,10 +781,6 @@
         <a class="nav-item-link" href="/about">About</a>
       </li>
     
-      <li class="nav-item">
-        <a class="nav-item-link" href="/links">Links</a>
-      </li>
-    
     <li class="nav-item">
       <a class="nav-item-link nav-item-search" title="Search">
         <i class="fe fe-search"></i>
@@ -890,26 +815,25 @@
 
 <script src="/js/jquery-2.0.3.min.js"></script>
 
-
+    
 <script src="/js/jquery.justifiedGallery.min.js"></script>
 
-
+        
 <script src="/js/lazyload.min.js"></script>
 
-
+            
 <script src="/js/busuanzi-2.3.pure.min.js"></script>
 
-
-  
+                
+                    
 <script src="/fancybox/jquery.fancybox.min.js"></script>
 
+                        
 
+                            
 
-
-
-
+                                        
 <script src="/js/ocean.js"></script>
-
 
 </body>
 </html>
