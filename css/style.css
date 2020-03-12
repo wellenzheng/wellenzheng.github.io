@@ -1146,11 +1146,13 @@ img {
 }
 .category-list > .category-list-item {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1.6rem;
 }
 .category-list > .category-list-item:before {
   content: "\f18c";
   font-family: feathericon;
+  font-size: 2rem;
   margin-right: 0.5rem;
 }
 .tag-list {
@@ -1162,11 +1164,13 @@ img {
 }
 .tag-list > .tag-list-item {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1.6rem;
 }
 .tag-list > .tag-list-item:before {
   content: "\f153";
   font-family: feathericon;
+  font-size: 2rem;
   margin-right: 0.5rem;
 }
 .video {
