@@ -105,7 +105,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" rel="gallery_ck7t7lgc20014l0l2heau80sg">
+          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" rel="gallery_ck7t7o6rm001cv8l24rv0giuc">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -115,44 +115,16 @@
 
 
                                                 
-                                                                    <h1 id="SpringBoot默认的静态资源访问方案"><a href="#SpringBoot默认的静态资源访问方案" class="headerlink" title="SpringBoot默认的静态资源访问方案"></a>SpringBoot默认的静态资源访问方案</h1><p>当我们使用 SpringMVC 框架时，静态资源会被拦截，需要添加额外配置。要讲 Spring Boot 中的问题，我们得先回到 SSM 环境搭建中，一般来说，我们可以通过 <code>&lt;mvc:resources /&gt;</code> 节点来配置不拦截静态资源</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">"/**"</span> <span class="attr">location</span>=<span class="string">"/"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>/**表示可以匹配任意层级的路径，以上配置是在XML中的配置，若在Java代码中进行配置，则需要自定义一个类，并继承自WebMvcConfigurationSupport，然后实现addResourceHandlers方法即可</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages = <span class="string">"org.sang.javassm"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringMVCConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>).addResourceLocations(<span class="string">"/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>那么在SpringBoot中是如何实现自动配置的呢？我们来看<strong>WebMvcAutoConfiguration</strong>类里面的<strong>addResourceHandlers</strong>方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (!<span class="keyword">this</span>.resourceProperties.isAddMappings()) &#123;</span><br><span class="line">				logger.debug(<span class="string">"Default resource handling disabled"</span>);</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			Duration cachePeriod = <span class="keyword">this</span>.resourceProperties.getCache().getPeriod();</span><br><span class="line">			CacheControl cacheControl = <span class="keyword">this</span>.resourceProperties.getCache().getCachecontrol().toHttpCacheControl();</span><br><span class="line">			<span class="keyword">if</span> (!registry.hasMappingForPattern(<span class="string">"/webjars/**"</span>)) &#123;</span><br><span class="line">				customizeResourceHandlerRegistration(registry.addResourceHandler(<span class="string">"/webjars/**"</span>)</span><br><span class="line">						.addResourceLocations(<span class="string">"classpath:/META-INF/resources/webjars/"</span>)</span><br><span class="line">						.setCachePeriod(getSeconds(cachePeriod)).setCacheControl(cacheControl));</span><br><span class="line">			&#125;</span><br><span class="line">			String staticPathPattern = <span class="keyword">this</span>.mvcProperties.getStaticPathPattern();</span><br><span class="line">			<span class="keyword">if</span> (!registry.hasMappingForPattern(staticPathPattern)) &#123;</span><br><span class="line">				customizeResourceHandlerRegistration(registry.addResourceHandler(staticPathPattern)</span><br><span class="line">						.addResourceLocations(getResourceLocations(<span class="keyword">this</span>.resourceProperties.getStaticLocations()))</span><br><span class="line">						.setCachePeriod(getSeconds(cachePeriod)).setCacheControl(cacheControl));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过ctrl+左键点击，我们可以查看<strong>staticPathPattern</strong>的值其实是/**，并通过<strong>addResourceHandler</strong>方法加载到配置中去。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Path pattern used for static resources.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String staticPathPattern = <span class="string">"/**"</span>;</span><br></pre></td></tr></table></figure>
-
-<p>然后我们再来看<strong>getStaticLocations()</strong>中的返回值是什么，一路查找下去我们发现其返回值是一个数组，定义了静态资源的访问路径，并且具有优先级。然后通过<strong>addResourceLocations</strong>方法加载到配置中去。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] CLASSPATH_RESOURCE_LOCATIONS = &#123; <span class="string">"classpath:/META-INF/resources/"</span>,</span><br><span class="line">			<span class="string">"classpath:/resources/"</span>, <span class="string">"classpath:/static/"</span>, <span class="string">"classpath:/public/"</span> &#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>classpath:/META-INF/resources/</p>
-</li>
-<li><p>classpath:/resources/</p>
-</li>
-<li><p>classpath:/static/</p>
-</li>
-<li><p>classpath:/public/</p>
-</li>
-<li><p>/</p>
-</li>
-</ul>
-<p>前四个目录好理解，分别对应了resources目录下不同的目录，第5个 <code>/</code> 是啥意思呢？我们知道，在 Spring Boot 项目中，默认是没有 webapp 这个目录的，当然我们也可以自己添加（例如在需要使用JSP的时候），这里第5个 <code>/</code> 其实就是表示 webapp 目录中的静态资源也不被拦截。如果同一个文件分别出现在五个目录下，那么优先级也是按照上面列出的顺序。</p>
-<h1 id="自定义静态资源位置"><a href="#自定义静态资源位置" class="headerlink" title="自定义静态资源位置"></a>自定义静态资源位置</h1><p>那么如果我们想自定义静态资源的位置呢？我们可以通过application.properties或Java代码来自定义。</p>
-<h2 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.resources.static-locations</span>=<span class="string">classpath:/myStatic</span></span><br><span class="line"><span class="meta">spring.mvc.static-path-pattern</span>=<span class="string">/**</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMVCConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">"/**"</span>).addResourceLocations(<span class="string">"classpath:/myStatic/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-                                                                        
+                                                    <h1 id="SpringBoot默认的静态资源访问方案"><a href="#SpringBoot默认的静态资源访问方案" class="headerlink" title="SpringBoot默认的静态资源访问方案"></a>SpringBoot默认的静态资源访问方案</h1><p>当我们使用 SpringMVC 框架时，静态资源会被拦截，需要添加额外配置。要讲 Spring Boot 中的问题，我们得先回到 SSM 环境搭建中，一般来说，我们可以通过 <code>&lt;mvc:resources /&gt;</code> 节点来配置不拦截静态资源</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" data-id="ck7t7lgc20014l0l2heau80sg" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" data-id="ck7t7o6rm001cv8l24rv0giuc" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -211,7 +183,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" rel="gallery_ck7t7lgby000zl0l28skj6jf9">
+          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" rel="gallery_ck7t7o6rp001gv8l26kup4ny4">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -230,7 +202,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" data-id="ck7t7lgby000zl0l28skj6jf9" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" data-id="ck7t7o6rp001gv8l26kup4ny4" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -289,7 +261,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" rel="gallery_ck7t7lgbh000ql0l2dlw2f1bw">
+          <a class="article-gallery-img" href="/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" rel="gallery_ck7t7o6ra000xv8l23lmm2xov">
             <img src="/images/0004.jpg" itemprop="image">
           </a>
         
@@ -308,7 +280,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7t7lgbh000ql0l2dlw2f1bw" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7t7o6ra000xv8l23lmm2xov" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -370,7 +342,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7t7lgf8002kl0l2hd4hbouy" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7t7o6s7001zv8l24mr4aixr" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -434,7 +406,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7t7lgco001sl0l2abs6e7ii" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7t7o6sa0022v8l2g1ig1d1s" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -500,7 +472,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7t7lgcf001hl0l2blf5gozy" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7t7o6ry001sv8l2hcyfd7en" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -566,7 +538,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7t7lgbs000wl0l2f6mv2tnc" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7t7o6r7000uv8l2g58h88ng" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -632,7 +604,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" data-id="ck7t7lgbd000nl0l2eofwdcz8" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" data-id="ck7t7o6r3000ov8l23wgl2l9l" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -698,7 +670,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A8/" data-id="ck7t7lgb9000kl0l22fiehemy" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A8/" data-id="ck7t7o6r5000rv8l25vxihq76" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -764,7 +736,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A7/" data-id="ck7t7lgav000al0l2cdyfg791" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A7/" data-id="ck7t7o6r0000lv8l2bx44d5hu" class="article-share-link">
                                             Share
                                         </a>
                                         
