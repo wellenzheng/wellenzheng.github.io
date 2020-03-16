@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    SpringBoot文件上传 |
+    
+    ThinkDeeper</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-SpringBoot文件上传" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot文件上传
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="article-date">
+  <time datetime="2020-03-16T07:18:46.000Z" itemprop="datePublished">2020-03-16</time>
+</a>
+                            
+    <div class="article-category">
+        <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/springboot/">springboot</a>
+    </div>
+    
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/images/0001.jpg" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+                                                
+                                                                    <p><strong>摘要</strong>：本文介绍了在Springboot中如何进行文件上传，以及使用Ajax上传，以及多文件上传的方式</p>
+<a id="more"></a>
+
+<h1 id="SpringBoot文件上传"><a href="#SpringBoot文件上传" class="headerlink" title="SpringBoot文件上传"></a>SpringBoot文件上传</h1><hr>
+<p>使用SpringBoot的文件上传，只需要编写好后台逻辑即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fileupload;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: WJZheng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2020/3/16 14:19</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileUploadController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"/yyyy/MM/dd/"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">upload</span><span class="params">(MultipartFile file, HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        String format = dateFormat.format(<span class="keyword">new</span> Date());</span><br><span class="line">        <span class="comment">//完整的路径</span></span><br><span class="line">        String realPath = request.getServletContext().getRealPath(<span class="string">"/img"</span>) + format;</span><br><span class="line">        <span class="comment">//创建一个保存的文件夹</span></span><br><span class="line">        File folder = <span class="keyword">new</span> File(realPath);</span><br><span class="line">        <span class="comment">//若文件夹不存在，则创建该文件夹</span></span><br><span class="line">        <span class="keyword">if</span> (!folder.exists()) &#123;</span><br><span class="line">            folder.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//为了避免重名，需要修改上传文件的名字</span></span><br><span class="line">        String oldName = file.getOriginalFilename();</span><br><span class="line">        String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.transferTo(<span class="keyword">new</span> File(folder, newName));</span><br><span class="line">            <span class="comment">//动态获取上传文件的url</span></span><br><span class="line">            String url = request.getScheme() + <span class="string">"://"</span> + request.getServerName() + <span class="string">":"</span> + request.getServerPort() + <span class="string">"/img"</span> + format + newName;</span><br><span class="line">            System.out.println(<span class="string">"submit success!"</span>);</span><br><span class="line">            <span class="keyword">return</span> url;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"errors"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建一个HTML页面用于上传</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/upload"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上传成功后返回文件的url，访问url即可看到上传的文件。</p>
+<h1 id="使用Ajax进行文件上传"><a href="#使用Ajax进行文件上传" class="headerlink" title="使用Ajax进行文件上传"></a>使用Ajax进行文件上传</h1><hr>
+<p>使用Ajax进行文件上传，后台代码还是使用上面的代码，只是前端需要修改一下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery-3.4.1.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"result"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"file"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"submit"</span> <span class="attr">onclick</span>=<span class="string">"upload()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">            <span class="comment">//$("#file")[0]把jQuery对象转成JavaScript对象</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> fileElement = $(<span class="string">"#file"</span>)[<span class="number">0</span>].files[<span class="number">0</span>];</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span></span><br><span class="line"><span class="actionscript">            formData.append(<span class="string">"file"</span>,fileElement);</span></span><br><span class="line"><span class="javascript">            $.ajax(&#123;</span></span><br><span class="line"><span class="actionscript">                type:<span class="string">'post'</span>,</span></span><br><span class="line"><span class="actionscript">                url:<span class="string">'/upload'</span>,</span></span><br><span class="line"><span class="actionscript">                processData: <span class="literal">false</span>,</span></span><br><span class="line"><span class="actionscript">                contentType: <span class="literal">false</span>,</span></span><br><span class="line">                data: formData,</span><br><span class="line"><span class="actionscript">                success: <span class="function"><span class="keyword">function</span> <span class="params">(msg)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">                    $(<span class="string">"#result"</span>).html(msg);</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="SpringBoot多文件上传"><a href="#SpringBoot多文件上传" class="headerlink" title="SpringBoot多文件上传"></a>SpringBoot多文件上传</h1><hr>
+<p>多文件上传并不难，首先在前端页面的input标签里添加一个<strong>multiple</strong>属性，然后在后台代码中使用一个<strong>MultipartFile</strong>数组来处理即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fileupload;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: WJZheng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2020/3/16 14:19</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileUploadController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"/yyyy/MM/dd/"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/uploads"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">uploads</span><span class="params">(MultipartFile[] files, HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">        String format = dateFormat.format(<span class="keyword">new</span> Date());</span><br><span class="line">        String realPath = request.getServletContext().getRealPath(<span class="string">"/img"</span>) + format;</span><br><span class="line">        File folder = <span class="keyword">new</span> File(realPath);</span><br><span class="line">        <span class="keyword">if</span> (!folder.exists()) &#123;</span><br><span class="line">            folder.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (MultipartFile file : files) &#123;</span><br><span class="line">            String oldName = file.getOriginalFilename();</span><br><span class="line">            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                file.transferTo(<span class="keyword">new</span> File(folder, newName));</span><br><span class="line">                String url = request.getScheme() + <span class="string">"://"</span> + request.getServerName() + <span class="string">":"</span> + request.getServerPort() + <span class="string">"/img"</span> + format + newName;</span><br><span class="line">                System.out.println(url);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/uploads"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"files"</span> <span class="attr">multiple</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行程序，然后选择多个文件并上传，我们可以看到控制台输出了上传文件的URL。</p>
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0010.PNG" alt=""></p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" data-id="ck7ubxgx2001508l2gmslemrj" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li></ul>
+        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/03/16/ControllerAdvice%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            @ControllerAdvice的使用
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">SpringBoot的静态资源访问方案</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '31cf2294bcfe0aa35211',
+      clientSecret: '608a10d0382cfe3193c44734a501c603b180743f',
+      repo: 'gittalk',
+      owner: 'wellenzheng',
+      admin: ['wellenzheng'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 ThinkDeeper</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="ThinkDeeper"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">Categories</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">Tags</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+    
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+        
+<script src="/js/lazyload.min.js"></script>
+
+            
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+                
+                    
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+                        
+
+                            
+                                
+<script src="/js/tocbot.min.js"></script>
+
+                                    <script>
+                                        // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+                                        tocbot.init({
+                                            tocSelector: '.tocbot',
+                                            contentSelector: '.article-entry',
+                                            headingSelector: 'h1, h2, h3, h4, h5, h6',
+                                            hasInnerContainers: true,
+                                            scrollSmooth: true,
+                                            positionFixedSelector: '.tocbot',
+                                            positionFixedClass: 'is-position-fixed',
+                                            fixedSidebarOffset: 'auto',
+                                        });
+                                    </script>
+                                    
+
+                                        
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
