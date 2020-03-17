@@ -23,7 +23,241 @@
   
 <script src="/js/pace.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container {
+  overflow: auto hidden;
+}
+
+mjx-container + br {
+  display: none;
+}
+</style><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container {
+  overflow: auto hidden;
+}
+
+mjx-container + br {
+  display: none;
+}
+</style></head>
 
 <body>
 <main class="content">
@@ -61,6 +295,84 @@
       
       <h1 class="page-type-title"></h1>
       
+        
+          <article id="post-SpringBoot自定义异常" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/03/17/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/">SpringBoot自定义异常</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/03/17/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/" class="article-date">
+  <time datetime="2020-03-16T16:39:42.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+                            
+    <div class="article-category">
+        <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/springboot/">springboot</a>
+    </div>
+    
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <a class="article-gallery-img" href="/2020/03/17/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/" rel="gallery_ck7vwalud001iawl2cwd11jat">
+            <img src="/images/0001.jpg" itemprop="image">
+          </a>
+        
+      
+    </div>
+  </div>
+
+
+                                                
+                                                    <p><strong>摘要</strong>：本文主要介绍了Springboot里面如何自定义错误页面、异常数据、异常视图以及异常的源码分析。</p>
+                                                        
+                                                            <a class="article-more-link" href="/2020/03/17/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/">
+                                                                Read More...
+                                                            </a>
+                                                            
+                                                                
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/03/17/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/" data-id="ck7vwalud001iawl2cwd11jat" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li></ul>
+        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
         
           <article id="post-ControllerAdvice的使用" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
@@ -105,7 +417,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/16/ControllerAdvice%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="gallery_ck7ubxgvp000008l2allab89j">
+          <a class="article-gallery-img" href="/2020/03/16/ControllerAdvice%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="gallery_ck7vwalth0002awl2dj0j61bi">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -124,7 +436,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/16/ControllerAdvice%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="ck7ubxgvp000008l2allab89j" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/16/ControllerAdvice%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="ck7vwalth0002awl2dj0j61bi" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -183,7 +495,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="gallery_ck7ubxgx2001508l2gmslemrj">
+          <a class="article-gallery-img" href="/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="gallery_ck7vwalu70017awl2hgx0hli7">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -202,7 +514,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" data-id="ck7ubxgx2001508l2gmslemrj" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/16/SpringBoot%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" data-id="ck7vwalu70017awl2hgx0hli7" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -261,7 +573,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" rel="gallery_ck7ubxgx5001e08l20awp7o5a">
+          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" rel="gallery_ck7vwalu9001cawl2273v51h5">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -280,7 +592,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" data-id="ck7ubxgx5001e08l20awp7o5a" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E6%96%B9%E6%A1%88/" data-id="ck7vwalu9001cawl2273v51h5" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -339,7 +651,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" rel="gallery_ck7ubxgx3001808l235k6f5rk">
+          <a class="article-gallery-img" href="/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" rel="gallery_ck7vwaluc001fawl26zxd9qyk">
             <img src="/images/0001.jpg" itemprop="image">
           </a>
         
@@ -358,7 +670,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" data-id="ck7ubxgx3001808l235k6f5rk" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/15/SpringBoot%E7%9A%84JSON%E8%A7%A3%E6%9E%90%E6%96%B9%E6%A1%88/" data-id="ck7vwaluc001fawl26zxd9qyk" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -417,7 +729,7 @@
     <div class="article-gallery-photos">
       
         
-          <a class="article-gallery-img" href="/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" rel="gallery_ck7ubxgx0000z08l218t5cz9m">
+          <a class="article-gallery-img" href="/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" rel="gallery_ck7vwalu0000vawl29ljxebjj">
             <img src="/images/0004.jpg" itemprop="image">
           </a>
         
@@ -436,7 +748,7 @@
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7ubxgx0000z08l218t5cz9m" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/JavaEE%E9%80%89%E4%BF%AE%E8%AF%BE-%E2%85%A0/" data-id="ck7vwalu0000vawl29ljxebjj" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -477,6 +789,10 @@
   <time datetime="2020-03-09T07:54:26.000Z" itemprop="datePublished">2020-03-09</time>
 </a>
                             
+    <div class="article-category">
+        <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+    </div>
+    
                     </div>
                     
 
@@ -487,6 +803,18 @@
 
 
                                             
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <a class="article-gallery-img" href="/2020/03/09/leetcode594-643/" rel="gallery_ck7vwalul001wawl201j50mgj">
+            <img src="/images/0001.jpg" itemprop="image">
+          </a>
+        
+      
+    </div>
+  </div>
+
 
                                                 
                                                     <h1 id="LeetCode-探索：发散你的思维"><a href="#LeetCode-探索：发散你的思维" class="headerlink" title="LeetCode 探索：发散你的思维"></a>LeetCode 探索：发散你的思维</h1>
@@ -498,10 +826,12 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7ubxgxo002908l294d54o4c" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/09/leetcode594-643/" data-id="ck7vwalul001wawl201j50mgj" class="article-share-link">
                                             Share
                                         </a>
                                         
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li></ul>
+        
                                     </footer>
 
     </div>
@@ -562,7 +892,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7ubxgxk002108l21pqzhm3h" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/07/leetcode557-590/" data-id="ck7vwalun0023awl2hw1ae25k" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -628,7 +958,7 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7ubxgxm002508l23itr3x10" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/06/leetcode507-551/" data-id="ck7vwalvd002uawl2dws2d5sl" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -683,6 +1013,18 @@
 
 
                                             
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <a class="article-gallery-img" href="/2020/03/05/MachineVision-1/" rel="gallery_ck7vwalu50014awl27ge5frqh">
+            <img src="/images/0001.jpg" itemprop="image">
+          </a>
+        
+      
+    </div>
+  </div>
+
 
                                                 
                                                     <p><strong>这是摘要</strong>：等我有空再写！！！</p>
@@ -694,77 +1036,11 @@
                                                                 
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7ubxgx4001b08l26f655z80" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/03/05/MachineVision-1/" data-id="ck7vwalu50014awl27ge5frqh" class="article-share-link">
                                             Share
                                         </a>
                                         
     <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/" rel="tag">机器视觉</a></li></ul>
-        
-                                    </footer>
-
-    </div>
-
-    
-
-                
-
-</article>
-        
-          <article id="post-Core-Java-Fundamentals-ⅩⅣ" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/">Core-Java-Fundamentals-ⅩⅣ</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" class="article-date">
-  <time datetime="2020-03-04T13:25:09.000Z" itemprop="datePublished">2020-03-04</time>
-</a>
-                            
-    <div class="article-category">
-        <a class="article-category-link" href="/categories/Java/">Java</a>
-    </div>
-    
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                    <p><strong>这是摘要</strong>：等我有空再写！！！</p>
-                                                        
-                                                            <a class="article-more-link" href="/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/">
-                                                                Read More...
-                                                            </a>
-                                                            
-                                                                
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/03/04/Core-Java-Fundamentals-%E2%85%A9%E2%85%A3/" data-id="ck7ubxgwz000w08l2hk151353" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
         
                                     </footer>
 
