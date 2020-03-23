@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    二手车交易价格预测-数据分析 |
+    
+    ThinkDeeper</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container {
+  overflow: auto hidden;
+}
+
+mjx-container + br {
+  display: none;
+}
+</style><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container {
+  overflow: auto hidden;
+}
+
+mjx-container + br {
+  display: none;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><main class="content">
+  <section class="outer">
+  <article id="post-二手车交易价格预测-数据分析" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      二手车交易价格预测-数据分析
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/03/23/%E4%BA%8C%E6%89%8B%E8%BD%A6%E4%BA%A4%E6%98%93%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="article-date">
+  <time datetime="2020-03-23T03:34:10.000Z" itemprop="datePublished">2020-03-23</time>
+</a>
+                            
+    <div class="article-category">
+        <a class="article-category-link" href="/categories/DataMining/">DataMining</a>
+    </div>
+    
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p><strong>摘要</strong>：此部分为零基础入门数据挖掘的 Task2 EDA-数据探索性分析 部分，带你来了解数据，熟悉数据，和数据做朋友。</p>
+<a id="more"></a>
+
+<h1 id="EDA目标"><a href="#EDA目标" class="headerlink" title="EDA目标"></a>EDA目标</h1><hr>
+<ul>
+<li>EDA的价值主要在于熟悉数据集，了解数据集，对数据集进行验证来确定所获得数据集可以用于接下来的机器学习或者深度学习使用。</li>
+<li>当了解了数据集之后我们下一步就是要去了解变量间的相互关系以及变量与预测值之间的存在关系。</li>
+<li>引导数据科学从业者进行数据处理以及特征工程的步骤,使数据集的结构和特征集让接下来的预测问题更加可靠。</li>
+<li>完成对于数据的探索性分析，并对于数据进行一些图表或者文字总结并打卡。</li>
+</ul>
+<h1 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h1><hr>
+<h3 id="载入各种数据科学以及可视化库"><a href="#载入各种数据科学以及可视化库" class="headerlink" title="载入各种数据科学以及可视化库"></a>载入各种数据科学以及可视化库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="comment"># 导入warnings包，利用过滤器来实现忽略警告语句。</span></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> missingno <span class="keyword">as</span> msno</span><br></pre></td></tr></table></figure>
+
+<h3 id="载入数据"><a href="#载入数据" class="headerlink" title="载入数据"></a>载入数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 载入训练集和测试集；</span></span><br><span class="line">Train_data = pd.read_csv(<span class="string">'train.csv'</span>, sep=<span class="string">' '</span>)</span><br><span class="line">Test_data = pd.read_csv(<span class="string">'testA.csv'</span>, sep=<span class="string">' '</span>)</span><br><span class="line">print(Train_data.shape)</span><br><span class="line">print(Test_data.shape)</span><br></pre></td></tr></table></figure>
+
+<h3 id="简略观察数据"><a href="#简略观察数据" class="headerlink" title="简略观察数据"></a>简略观察数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略观察数据(head()+tail())</span></span><br><span class="line">Train_data.head().append(Train_data.tail())</span><br></pre></td></tr></table></figure>
+
+<h3 id="总览数据概况"><a href="#总览数据概况" class="headerlink" title="总览数据概况"></a>总览数据概况</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Train_data.describe()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Train_data.info()</span><br></pre></td></tr></table></figure>
+
+<h3 id="缺失值可视化"><a href="#缺失值可视化" class="headerlink" title="缺失值可视化"></a>缺失值可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nan可视化</span></span><br><span class="line">missing = Train_data.isnull().sum()</span><br><span class="line">missing = missing[missing &gt; <span class="number">0</span>]</span><br><span class="line">missing.sort_values(inplace=<span class="literal">True</span>)</span><br><span class="line">missing.plot.bar()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0024.PNG" alt=""></p>
+<p>通过以上两句可以很直观的了解哪些列存在 “nan”, 并可以把nan的个数打印，主要的目的在于 nan存在的个数是否真的很大，如果很小一般选择填充，如果使用lgb等树模型可以直接空缺，让树自己去优化，但如果nan存在的过多、可以考虑删掉。</p>
+<h3 id="可视化查看缺省值"><a href="#可视化查看缺省值" class="headerlink" title="可视化查看缺省值"></a>可视化查看缺省值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可视化看下缺省值</span></span><br><span class="line">msno.matrix(Train_data.sample(<span class="number">250</span>))</span><br><span class="line">msno.matrix(Train_data.sample(<span class="number">250</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0026.PNG" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0027.PNG" alt=""></p>
+<p>测试集的缺省和训练集的差不多情况, 可视化有四列有缺省，notRepairedDamage缺省得最多。</p>
+<h3 id="查看一些离散特征值的分布情况"><a href="#查看一些离散特征值的分布情况" class="headerlink" title="查看一些离散特征值的分布情况"></a>查看一些离散特征值的分布情况</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对一些离散值进行查看</span></span><br><span class="line">fig, axs = plt.subplots(<span class="number">1</span>, <span class="number">3</span>, figsize=(<span class="number">16</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">axs[<span class="number">0</span>].set_title(<span class="string">'notRepairedDamage'</span>)</span><br><span class="line">axs[<span class="number">0</span>].bar(Train_data[<span class="string">'notRepairedDamage'</span>].unique(),Train_data[<span class="string">'notRepairedDamage'</span>].value_counts())</span><br><span class="line">axs[<span class="number">1</span>].set_title(<span class="string">'seller'</span>)</span><br><span class="line">axs[<span class="number">1</span>].set_xticks(np.arange(<span class="number">0</span>,<span class="number">2</span>,step=<span class="number">1</span>))</span><br><span class="line">axs[<span class="number">1</span>].bar(Train_data[<span class="string">'seller'</span>].unique(),Train_data[<span class="string">'seller'</span>].value_counts())</span><br><span class="line">axs[<span class="number">2</span>].set_title(<span class="string">'offerType'</span>)</span><br><span class="line">axs[<span class="number">2</span>].set_xticks(np.arange(<span class="number">0</span>,<span class="number">2</span>,step=<span class="number">1</span>))</span><br><span class="line">axs[<span class="number">2</span>].bar(Train_data[<span class="string">'offerType'</span>].unique(),Train_data[<span class="string">'offerType'</span>].value_counts())</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0028.PNG" alt=""></p>
+<p>可以看出来在<strong>notRepairedDamage</strong>中‘ - ’也为空缺值，因为很多模型对nan有直接的处理，这里我们先不做处理，先替换成nan</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Train_data[<span class="string">'notRepairedDamage'</span>].replace(<span class="string">'-'</span>, np.nan, inplace=<span class="literal">True</span>)</span><br><span class="line">Test_data[<span class="string">'notRepairedDamage'</span>].replace(<span class="string">'-'</span>, np.nan, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后我们还能看到<strong>seller</strong>和<strong>offerType</strong>这两个特征严重倾斜，对预测没有什么帮助，因此我们先删掉。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> Train_data[<span class="string">"seller"</span>]</span><br><span class="line"><span class="keyword">del</span> Train_data[<span class="string">"offerType"</span>]</span><br><span class="line"><span class="keyword">del</span> Test_data[<span class="string">"seller"</span>]</span><br><span class="line"><span class="keyword">del</span> Test_data[<span class="string">"offerType"</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="了解预测值的分布"><a href="#了解预测值的分布" class="headerlink" title="了解预测值的分布"></a>了解预测值的分布</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 总体分布概况（无界约翰逊分布等）</span></span><br><span class="line"><span class="comment"># 价格不服从正态分布，所以在进行回归之前，它必须进行转换。虽然对数变换做得很好，但最佳拟合是无界约翰逊分布</span></span><br><span class="line"><span class="keyword">import</span> scipy.stats <span class="keyword">as</span> st</span><br><span class="line">y = Train_data[<span class="string">'price'</span>]</span><br><span class="line">plt.figure(<span class="number">1</span>); plt.title(<span class="string">'Johnson SU'</span>)</span><br><span class="line">sns.distplot(y, kde=<span class="literal">False</span>, fit=st.johnsonsu)</span><br><span class="line">plt.figure(<span class="number">2</span>); plt.title(<span class="string">'Normal'</span>)</span><br><span class="line">sns.distplot(y, kde=<span class="literal">False</span>, fit=st.norm)</span><br><span class="line">plt.figure(<span class="number">3</span>); plt.title(<span class="string">'Log Normal'</span>)</span><br><span class="line">sns.distplot(y, kde=<span class="literal">False</span>, fit=st.lognorm)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0035.PNG" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0030.PNG" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0031.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看skewness and kurtosis</span></span><br><span class="line">sns.distplot(Train_data[<span class="string">'price'</span>]);</span><br><span class="line">print(<span class="string">"Skewness: %f"</span> % Train_data[<span class="string">'price'</span>].skew())</span><br><span class="line">print(<span class="string">"Kurtosis: %f"</span> % Train_data[<span class="string">'price'</span>].kurt())</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0034.PNG" alt=""></p>
+<h4 id="查看训练集的偏度和峰度"><a href="#查看训练集的偏度和峰度" class="headerlink" title="查看训练集的偏度和峰度"></a>查看训练集的偏度和峰度</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(Train_data.skew(),color=<span class="string">'blue'</span>,axlabel =<span class="string">'Skewness'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0032.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(Train_data.kurt(),color=<span class="string">'orange'</span>,axlabel =<span class="string">'Kurtness'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0033.PNG" alt=""></p>
+<h4 id="查看预测值的具体频数"><a href="#查看预测值的具体频数" class="headerlink" title="查看预测值的具体频数"></a>查看预测值的具体频数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看预测值的具体频数</span></span><br><span class="line">plt.hist(Train_data[<span class="string">'price'</span>], orientation = <span class="string">'vertical'</span>,histtype = <span class="string">'bar'</span>, color =<span class="string">'red'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0036.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log变换 z之后的分布较均匀，可以进行log变换进行预测，这也是预测问题常用的trick</span></span><br><span class="line">plt.hist(np.log(Train_data[<span class="string">'price'</span>]), orientation = <span class="string">'vertical'</span>,histtype = <span class="string">'bar'</span>, color =<span class="string">'red'</span>) </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0037.PNG" alt=""></p>
+<h3 id="特征分为类别特征和数字特征，并对类别特征查看unique分布"><a href="#特征分为类别特征和数字特征，并对类别特征查看unique分布" class="headerlink" title="特征分为类别特征和数字特征，并对类别特征查看unique分布"></a>特征分为类别特征和数字特征，并对类别特征查看unique分布</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分离label即预测值</span></span><br><span class="line">Y_train = Train_data[<span class="string">'price'</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">numeric_features = [<span class="string">'power'</span>, <span class="string">'kilometer'</span>, <span class="string">'v_0'</span>, <span class="string">'v_1'</span>, <span class="string">'v_2'</span>, <span class="string">'v_3'</span>, <span class="string">'v_4'</span>, <span class="string">'v_5'</span>, <span class="string">'v_6'</span>, <span class="string">'v_7'</span>, <span class="string">'v_8'</span>, <span class="string">'v_9'</span>, <span class="string">'v_10'</span>, <span class="string">'v_11'</span>, <span class="string">'v_12'</span>, <span class="string">'v_13'</span>,<span class="string">'v_14'</span> ]</span><br><span class="line"></span><br><span class="line">categorical_features = [<span class="string">'name'</span>, <span class="string">'model'</span>, <span class="string">'brand'</span>, <span class="string">'bodyType'</span>, <span class="string">'fuelType'</span>, <span class="string">'gearbox'</span>, <span class="string">'notRepairedDamage'</span>, <span class="string">'regionCode'</span>,]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征nunique分布</span></span><br><span class="line">Train_cate = Train_data[categorical_features]</span><br><span class="line">Train_cate.nunique()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0038.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征nunique分布</span></span><br><span class="line">Test_cate = Test_data[categorical_features]</span><br><span class="line">Test_cate.nunique()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0039.PNG" alt=""></p>
+<h3 id="数字特征分析"><a href="#数字特征分析" class="headerlink" title="数字特征分析"></a>数字特征分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numeric_features.append(<span class="string">'price'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 相关性分析</span></span><br><span class="line">price_numeric = Train_data[numeric_features]</span><br><span class="line">correlation = price_numeric.corr()</span><br><span class="line">correlation[<span class="string">'price'</span>].sort_values(ascending = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0040.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f , ax = plt.subplots(figsize = (<span class="number">7</span>, <span class="number">7</span>))</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">'Correlation of Numeric Features with Price'</span>,y=<span class="number">1</span>,size=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">sns.heatmap(correlation,square = <span class="literal">True</span>,  vmax=<span class="number">0.8</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0041.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> price_numeric[<span class="string">'price'</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看几个特征得 偏度和峰值</span></span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> numeric_features:</span><br><span class="line">    print(<span class="string">'{:15}'</span>.format(col), </span><br><span class="line">          <span class="string">'Skewness: {:05.2f}'</span>.format(Train_data[col].skew()) , </span><br><span class="line">          <span class="string">'   '</span> ,</span><br><span class="line">          <span class="string">'Kurtosis: {:06.2f}'</span>.format(Train_data[col].kurt())  </span><br><span class="line">         )</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0042.PNG" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个数字特征得分布可视化，可以看出匿名特征相对分布均匀</span></span><br><span class="line">f = pd.melt(Train_data, value_vars=numeric_features)</span><br><span class="line">g = sns.FacetGrid(f, col=<span class="string">"variable"</span>,  col_wrap=<span class="number">6</span>, sharex=<span class="literal">False</span>, sharey=<span class="literal">False</span>)</span><br><span class="line">g = g.map(sns.distplot, <span class="string">"value"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/wellenzheng/gittalk/master/images/0043.PNG" alt=""></p>
+<svg style="display: none" id="MJX-SVG-global-cache"><defs></defs></svg>
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/03/23/%E4%BA%8C%E6%89%8B%E8%BD%A6%E4%BA%A4%E6%98%93%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" data-id="ck845b2od002n6cl2awdhdr8c" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataMining/" rel="tag">DataMining</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B/" rel="tag">价格预测</a></li></ul>
+        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/03/22/%E4%BA%8C%E6%89%8B%E8%BD%A6%E4%BA%A4%E6%98%93%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B-%E8%B5%9B%E9%A2%98%E7%90%86%E8%A7%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">二手车交易价格预测-赛题理解</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+  <div class="gitalk" id="gitalk-container"></div>
+  
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '31cf2294bcfe0aa35211',
+      clientSecret: '608a10d0382cfe3193c44734a501c603b180743f',
+      repo: 'gittalk',
+      owner: 'wellenzheng',
+      admin: ['wellenzheng'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 ThinkDeeper</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="ThinkDeeper"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">Categories</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">Tags</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+    
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+        
+<script src="/js/lazyload.min.js"></script>
+
+            
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+                
+                    
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+                        
+
+                            
+                                
+<script src="/js/tocbot.min.js"></script>
+
+                                    <script>
+                                        // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+                                        tocbot.init({
+                                            tocSelector: '.tocbot',
+                                            contentSelector: '.article-entry',
+                                            headingSelector: 'h1, h2, h3, h4, h5, h6',
+                                            hasInnerContainers: true,
+                                            scrollSmooth: true,
+                                            positionFixedSelector: '.tocbot',
+                                            positionFixedClass: 'is-position-fixed',
+                                            fixedSidebarOffset: 'auto',
+                                        });
+                                    </script>
+                                    
+
+                                        
+<script src="/js/ocean.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
