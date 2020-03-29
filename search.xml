@@ -27,6 +27,8 @@
 
 <p>至此我们的基础配置就做好了，那么我们通过postman来测试以下RESTful的默认接口</p>
 <h2 id="RESTful默认的增删改查"><a href="#RESTful默认的增删改查" class="headerlink" title="RESTful默认的增删改查"></a>RESTful默认的增删改查</h2><h3 id="查"><a href="#查" class="headerlink" title="查"></a>查</h3><p>我们在postman中使用GET方法访问该网址<code>http://localhost:8080/books</code></p>
+<p><img src="/" class="lazyload" data-src="https://q7yebh4o.bkt.clouddn.com/image/0083.PNGimage"  alt=""></p>
+<p><img src="/" class="lazyload" data-src="https://q7yebh4o.bkt.clouddn.com/image/0084.PNGimage"  alt=""></p>
 <svg style="display: none" id="MJX-SVG-global-cache"><defs></defs></svg>]]></content>
       <categories>
         <category>Java</category>
