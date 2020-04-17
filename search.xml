@@ -1,12 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>垃圾收集器与内存分配策略</title>
+    <url>/2020/04/17/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="http://xxx/aplayer.min.css"><script src="http://xxx/aplayer.min.js" class="aplayer-secondary-script-marker"></script><script>var meting_api='http://xxx/api.php?server=:server&type=:type&id=:id&r=:r'</script><script class="meting-secondary-script-marker" src="http://xxx/Meing.min.js"></script><h1 id="垃圾回收的三个问题"><a href="#垃圾回收的三个问题" class="headerlink" title="垃圾回收的三个问题"></a>垃圾回收的三个问题</h1><hr>
+<ul>
+<li>哪些内存需要回收？</li>
+<li>什么时候回收？</li>
+<li>如何回收？</li>
+</ul>
+<h1 id="对象已死吗"><a href="#对象已死吗" class="headerlink" title="对象已死吗"></a>对象已死吗</h1><hr>
+<p>垃圾收集器在对堆回收之前，首先需要考虑的就是哪些内存需要回收，确定哪些对象还活着，哪些对象已死去。</p>
+<h2 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h2><p>给对象添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。</p>
+<h2 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h2><p>通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链连接的时候，则证明该对象是不可用的。</p>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0152.PNG"  alt=""></p>
+<p>在Java语言中，可作为GC Roots的对象包括：</p>
+<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI（native方法）引用的对象</li>
+</ul>
+<h2 id="再谈引用"><a href="#再谈引用" class="headerlink" title="再谈引用"></a>再谈引用</h2><p>在JDK1.2之后，Java将引用分为强引用、软引用、弱引用、虚引用，强度依次递减</p>
+<ul>
+<li>强引用就是指在程序代码中普遍存在的，类似”Object obj = new Object()”这类的引用，只要强引用还存在，垃圾收集器永远不会回收被引用的对象。</li>
+<li>软引用是用来描述一些还有用但并非必需的对象。对于软引用关联着的对象，在系统将要发生内存溢出之前，将会把这些对象列进回收范围之中进行第二次回收。</li>
+<li>弱引用也是用来描述非必需对象的，被弱引用关联的对象只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。</li>
+<li>虚引用是最弱的引用关系，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。</li>
+</ul>
+<h2 id="生存还是死亡"><a href="#生存还是死亡" class="headerlink" title="生存还是死亡"></a>生存还是死亡</h2><p>下面来叙述以下判断生存或是死亡的过程：</p>
+<ul>
+<li>首先进行可达性分析，若没有发现可达性连接，则对其进行一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize方法。若对象没有覆盖finalize方法，或finalize方法已经被虚拟机调用过，则虚拟机将这两种情况视为”没有必要执行“。</li>
+<li>若该对象被判定为有必要执行finalize方法，那么该对象会被放置在一个叫做F-Queue的队列中，并由一个虚拟机自动建立的、低优先级的Finalizer线程去执行。</li>
+<li>稍后GC将对F-Queue中的对象进行第二次小规模的标记。如果对象又重新与引用链上的任何一个对象建立关联，则可以脱离被回收的状态，比如将自己赋值给某个类变量或成员变量。若被第二次标记，它将被移出”即将回收“集合，然后基本上它就会被回收了。</li>
+</ul>
+<h2 id="回收方法区"><a href="#回收方法区" class="headerlink" title="回收方法区"></a>回收方法区</h2><p>永久代的垃圾收集主要回收两部分内容：废弃常量和无用的类。</p>
+<h3 id="判断废弃常量的方法"><a href="#判断废弃常量的方法" class="headerlink" title="判断废弃常量的方法"></a>判断废弃常量的方法</h3><p>以常量池中字面值的回收为例，若一个字符串常量进入了常量池中，但是没有任何一个对象引用该常量，则该常量会被回收。</p>
+<h3 id="判断无用的类的方法"><a href="#判断无用的类的方法" class="headerlink" title="判断无用的类的方法"></a>判断无用的类的方法</h3><ul>
+<li>该类所有的实例都已经被回收，即Java堆中不存在该类的实例</li>
+<li>加载该类的ClassLoader已经被回收</li>
+<li>该类对应的Class对象没有在任何地方被引用，无法在任何地方通过反射机制访问该类的方法</li>
+</ul>
+<h1 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h1><hr>
+<h2 id="标记—清除算法"><a href="#标记—清除算法" class="headerlink" title="标记—清除算法"></a>标记—清除算法</h2><p>首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。</p>
+<p>其主要的不足有两个：</p>
+<ul>
+<li>效率问题，标记和清除的效率都不高</li>
+<li>空间问题，标记清除之后会产生大量不连续的内存碎片，而当需要分配一个较大对象时，若无法找到一个足够的连续内存，则会触发另一次垃圾收集动作</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0153.PNG"  alt=""></p>
+<h2 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h2><p>复制算法将内存按容量划分为大小相等的两块，每次只使用其中的一块，当这一块内存用完了，则将还存活着的对象复制到另一块上，然后把已使用过的内存空间一次性清理掉。</p>
+<ul>
+<li>优点是效率高，且不需要考虑内存碎片问题</li>
+<li>缺点是每次只使用一半的内存，空间浪费太大</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0154.PNG"  alt=""></p>
+<h2 id="标记—整理算法"><a href="#标记—整理算法" class="headerlink" title="标记—整理算法"></a>标记—整理算法</h2><p>首先标记存活的对象，然后将存活的对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0155.PNG"  alt=""></p>
+<h2 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h2><p>在新生代中，每次垃圾收集时都会有大量对象死去，只有少量存活，则选用复制算法。</p>
+<p>而老年代中，因为对象存活率高、没有额外空间对它进行分配担保，就使用”标记—清除“或”标记—整理”算法。</p>
+<svg style="display: none" id="MJX-SVG-global-cache"><defs></defs></svg>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java内存区域与内存溢出异常</title>
+    <url>/2020/04/17/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="http://xxx/aplayer.min.css"><script src="http://xxx/aplayer.min.js" class="aplayer-secondary-script-marker"></script><script>var meting_api='http://xxx/api.php?server=:server&type=:type&id=:id&r=:r'</script><script class="meting-secondary-script-marker" src="http://xxx/Meing.min.js"></script><h1 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h1><hr>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0148.PNG"  alt=""></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器是线程私有的一块内存，用于记录下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖程序计数器来完成。</p>
+<p>如果线程正在执行的是一个Java方法，则程序计数器记录的是正在执行的虚拟机字节码指令的地址。如果正在执行的是native方法，则程序计数器的值为空（undefined）。</p>
+<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>虚拟机栈也是线程私有的，它的生命周期与线程相同。</p>
+<p>虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。</p>
+<p>而局部变量表存放了编译期可知的各种基本数据类型和对象引用类型。</p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈与虚拟机栈类似，虚拟机栈为虚拟机执行Java方法服务，而本地方法栈则为虚拟机使用到的native方法服务。</p>
+<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区与Java堆一样，是所有线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池是方法区的一部分，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。</p>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存并不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域</p>
+<p>在JDK1.4中新加入了NIO类，引入了一种基于通道与缓冲区的I/O方式，它可以使用native函数库直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java堆和native堆中来回复制数据。</p>
+<h1 id="HotSpot虚拟机对象探秘"><a href="#HotSpot虚拟机对象探秘" class="headerlink" title="HotSpot虚拟机对象探秘"></a>HotSpot虚拟机对象探秘</h1><hr>
+<h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><ul>
+<li>当虚拟机遇到一条new执行时，首先去检查这个执行的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，拿必须先执行相应的类加载过程。</li>
+<li>在类加载检查通过后，虚拟机将为新生对象分配内存，对象所需的内存大小在类加载完成后便可完全确定。<ul>
+<li>假设Java堆中内存是绝对规整的，则使用“指针碰撞”分配方式</li>
+<li>假设Java堆中的内存不是规整的，则使用“空闲列表”分配方式</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在分配内存时需要考虑的一个问题是，在并发情况下分配内存空间并不是线程安全的。解决这个问题有两种方案：</p>
+<ul>
+<li><p>一是对分配内存空间的动作进行同步处理——实际上虚拟机采用CAS配上失败重试的方式保证更新操作的原子性。</p>
+</li>
+<li><p>另一种是为每个线程在Java堆中预先分配一块内存，称为本地线程分配缓冲（TLAB），当线程需要分配内存时，则在自己的TLAB中分配，只有当自己的TLAB用完并分配新的TLAB时，才需要同步写入Java堆。</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（不包括对象头），如果使用TLAB，这一工作过程也可以提前至TLAB分配时进行。</li>
+<li>接下来，虚拟机需要对该对象进行必要的设置，如对象的类型、类的元数据信息、对象的哈希码、对象的GC分代年龄等，这些信息存放在对象的对象头中。</li>
+<li>最后执行init方法，把对象按照程序员的意愿进行初始化，这样一个真正的对象才算创建出来。</li>
+</ul>
+<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p>对象在内存中存储的布局可以分为3块区域：对象头、实例数据、对齐填充</p>
+<ul>
+<li>对象头包括两部分信息<ul>
+<li>第一部分用于存储对象自身的运行时数据，如哈希码、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等。如果对象是一个Java数组，则对象头还必须记录数据的长度。</li>
+<li>另一部分是类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0149.PNG"  alt=""></p>
+<ul>
+<li>实例数据部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论是从父类继承下来的，还是在子类中定义的，都需要记录起来。</li>
+<li>对齐填充并不是必然存在的，它仅仅起着占位符的作用。</li>
+</ul>
+<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>Java程序需要通过栈上的reference数据来操作堆上的具体对象。由于reference类型在Java虚拟机规范中只规定了一个指向对象的引用，并没有定义这个引用应该通过何种方式去定位、访问堆中的对象的具体位置，所以对象访问方式也是取决于虚拟机实现而定的。目前主流的访问方式有使用句柄和直接指针两种。</p>
+<ul>
+<li>如果使用句柄访问的话，那么Java堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0150.PNG"  alt=""></p>
+<ul>
+<li>如果使用直接指针访问，那么Java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址。</li>
+</ul>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0151.PNG"  alt=""></p>
+<p><strong>两种方式的对比</strong>：</p>
+<ul>
+<li>句柄方式的好处就是reference存储的是固定的句柄地址，不需要改变</li>
+<li>直接指针的好处是访问速度更快，节省了一次指针定位的时间开销</li>
+</ul>
+<svg style="display: none" id="MJX-SVG-global-cache"><defs></defs></svg>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>并发编程基础知识</title>
+    <url>/2020/04/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="http://xxx/aplayer.min.css"><script src="http://xxx/aplayer.min.js" class="aplayer-secondary-script-marker"></script><script>var meting_api='http://xxx/api.php?server=:server&type=:type&id=:id&r=:r'</script><script class="meting-secondary-script-marker" src="http://xxx/Meing.min.js"></script><h1 id="什么是多线程并发编程"><a href="#什么是多线程并发编程" class="headerlink" title="什么是多线程并发编程"></a>什么是多线程并发编程</h1><hr>
+<p>并发是指同一个时间段内多个任务同时都在执行，并且都没有执行结束，而并行是说在单位时间内多个任务同时在执行。 </p>
+<p>并发任务强调在一个时间段内同时执行，而一个时间段由多个单位时间累积而成，所以说并发的多个任务在单位时间内不一定同时在执行。</p>
+<h1 id="为什么要进行多线程并发编程"><a href="#为什么要进行多线程并发编程" class="headerlink" title="为什么要进行多线程并发编程"></a>为什么要进行多线程并发编程</h1><hr>
+<p>多核 CPU 时代的到来打破了单核 CPU 对多线程效能的限制。 多个 CPU 意味着每个线程可以使用自己的 CPU 运行，这减少了线程上下文切换的开销，但随着对应用系统性能和吞吐量要求的提高，出现了处理海量数据和请求的要求，这些都对高并发编程有着迫切的需求。</p>
+<h1 id="Java中的线程安全问题"><a href="#Java中的线程安全问题" class="headerlink" title="Java中的线程安全问题"></a>Java中的线程安全问题</h1><hr>
+<p><strong>资源共享</strong>，是指该资源被多个线程所持有或者说多个线程都可以去访问该资源。</p>
+<p><strong>线程安全</strong>问题则是指当多个线程同时读写一个共享资源并且没有任何同步措施时，导致出现脏数据或者其他不可预见的结果的问题。且只有当至少一个线程修改共享资源时才会出现线程安全问题。</p>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0145.PNG"  alt=""></p>
+<h1 id="Java中共享变量的内存可见性问题"><a href="#Java中共享变量的内存可见性问题" class="headerlink" title="Java中共享变量的内存可见性问题"></a>Java中共享变量的内存可见性问题</h1><hr>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0146.PNG"  alt=""></p>
+<p>Java 内存模型规定，将所有的变量都存放在主内存中，当线程使用变量时，会把主内存里面的变量复制到自己的工作空间或者叫作工作内存，线程读写变量时操作的是自己工作内存中的变量。 </p>
+<p>当一个线程操作共享变量时，它首先从主内存复制共享变量到自己的工作内存， 然后对工作内存里的变量进行处理，处理完后将变量值更新到主内存。</p>
+<p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0147.PNG"  alt=""></p>
+<p>我们通过上图的一个例子来解释内存不可见性问题：</p>
+<p>假如线程 A 和线程 B 同时处理一个共享变量，会出现什么情况？我们使用图 2-5 所示 CPU 架构， 假设线程 A 和线程 B 使用不同 CPU 执行，并且当前两级 Cache 都为空， 那么这时候由于 Cache 的存在，将会导致内存不可见问题</p>
+<ul>
+<li>线程 A 首先获取共享变量 X 的值，由于两级 Cache 都没有命中 ，所以加载主内存中 X 的值，假如为 0。然后把 X = 0 的值缓存到两级缓存， 线程 A 修改 X 的值为 1, 然后将其写入两级 Cache， 并且刷新到主内存。 线程 A 操作完毕后，线程 A 所在的 CPU 的两级 Cache 内和主内存里面的 X 的值都是 1。 </li>
+<li>线程 B 获取 X 的值，首先一级缓存没有命中，然后看二级缓存，二级缓存命中了，所以返回 X = 1 ；到这里一切都是正常的，因为这时候主内存中也是 X = 1 。然后线程 B 修改 X 的值为 2， 并将其存放到线程 B 所在的一级 Cache 和共享二级 Cache 中， 最后更新主内存中 X 的值为 2 ；到这里一切都是好的。 </li>
+<li>线程 A 这次又需要修改 X 的值，获取时一级缓存命中，并且 X = 1 ，到这里问题就出现了，明明线程 B 已经把 X 的值修改为了 2，为何线程 A 获取的还是 1 呢？ 这就是共享变量的内存不可见问题，也就是线程 B 写入的值对线程 A 不可见。</li>
+</ul>
+<h1 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h1><hr>
+<h2 id="synchronized关键字的介绍"><a href="#synchronized关键字的介绍" class="headerlink" title="synchronized关键字的介绍"></a>synchronized关键字的介绍</h2><p>synchronized 块是 Java 提供的一种原子性内置锁，Java 中的每个对象都可以把它当作一个同步锁来使用，这些 Java 内置的使用者看不到的锁被称为内部锁，也叫作监视器锁。 </p>
+<h2 id="synchronized的内存语义"><a href="#synchronized的内存语义" class="headerlink" title="synchronized的内存语义"></a>synchronized的内存语义</h2><p>我们来看 synchronized 的一个内存语义，这个内存语义就可以解决共享变量内存可见性问题。 </p>
+<ul>
+<li>进入 synchronized 代码块时：把 synchronized 块内使用到的共享变量从线程的工作内存中清除，这样该变量就会从主内存中读取。</li>
+<li>退出 synchronized 代码块时：把 synchronized 块内对共享变量的修改刷新到主内存中。</li>
+</ul>
+<h1 id="Java中的volatile关键字"><a href="#Java中的volatile关键字" class="headerlink" title="Java中的volatile关键字"></a>Java中的volatile关键字</h1><hr>
+<p>对于解决内存可见性问题，Java还提供了一种弱形式的同步，这就是 volatile 关键字。</p>
+<ul>
+<li><p>当一个变量被声明为 volatile 时，线程在写入变量时不会把值缓存在寄存器或者其他地方，而是会把值刷新回主内存。 </p>
+</li>
+<li><p>当其他线程读取该共享变量时，会从主内存重新获取最新值，而不是使用当前线程的工作内存中的值。 </p>
+</li>
+</ul>
+<p>volatile 相比于 synchronized 有一些好处，比如说可以减少线程上下文切换带来的开销。同时 volatile 是非阻塞式的，而 synchronized 是阻塞式的。</p>
+<p>volatile 虽然提供了可见性保证，但并不保证操作的原子性。那么一般在什么时候才使用 volatile 关键字呢？</p>
+<ul>
+<li>写入变量值不依赖变量的当前值时。 因为如果依赖当前值，将是获取一计算一写入三步操作，这三步操作不是原子性的，而 volatile 不保证原子性。 比如说 i++ 。</li>
+<li>读写变量值时没有加锁。 因为加锁本身已经保证了内存可见性，这时候不需要把变量声明为 volatile 的。</li>
+</ul>
+<h1 id="Java中的原子性操作"><a href="#Java中的原子性操作" class="headerlink" title="Java中的原子性操作"></a>Java中的原子性操作</h1><hr>
+<p>所谓原子性操作，是指执行一系列操作时，这些操作要么全部执行，要么全部不执行，不存在只执行其中一部分的情况。 比如 i++ 就不具有原子性。</p>
+<p>那么如何保证多个操作的原子性呢？最简单的方法就是使用 synchronized 关键字进行同步。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadSafeCount</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> Long value;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Long <span class="title">getCount</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">()</span> </span>{</span><br><span class="line">        ++value;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>使用 synchronized 关键宇的确可以实现线程安全性，即内存可见性和原子性，但是 synchronized 是独占锁，没有获取内部锁的线程会被阻塞掉，而这里的 getCount 方法只是读操作，多个线程同时调用不会存在线程安全问题。 但是加了关键宇 synchronized 后，同 一时间就只能有一个线程可以调用，这显然大大降低了并发性。你也许会间，既然是只读操作，那为何不去掉 getCount 方法上的 synchronized 关键字呢？其实是不能去掉的，别忘 了这里要靠 synchronized 来实现 value 的内存可见性。</p>
+<h1 id="Java中的CAS操作"><a href="#Java中的CAS操作" class="headerlink" title="Java中的CAS操作"></a>Java中的CAS操作</h1><hr>
+<p> CAS 即 Compare and Swap，其是 JDK 提供的非阻塞原子性操作，它通过硬件保证了比较—更新操作的原子性。 JDK 里面的 Unsafe 类提供了一系列的 compareAndSwap＊方法，下面以 compareAndSwapLong 方法为例进行简单介绍。</p>
+<blockquote>
+<p>boolean compareAndSwapLong(Object obj, long valueOffset, long expect, long update）方 法 ： 其中 compareAndSwap 的意思是比较并交换。CAS 有四个操作数，分别为：对象内存位置、对象中的变量的偏移量、 变量预期值和新的值。其操作含义是，如果对象 obj 中内存偏移量为 valueOffset 的变量值为 expect，则使用新的值 update 替换旧的值 expect。这是处理器提供的一个原子性指令。</p>
+</blockquote>
+<p>关于 CAS 操作有个经典的 ABA 问题，具体如下：假如线程 I 使用 CAS 修改初始值为 A 的变量 X， 那么线程 I 会首先去获取当前变量 X 的值（为 A），然后使用 CAS 操作尝试修改 X 的值为 B，如果使用 CAS 操作成功了，那么程序运行一定是正确的吗？其实未必，这是因为有可能在线程 I 获取变量 X 的值 A 后，在执行 CAS 前，线程 II 使用 CAS 修改了变量 X 的值为 B，然后又使用 CAS 修改了变量 X 的值为 A。 所以虽然线程 I 执行 CAS 时 X 的值是 A， 但是这个 A 己经不是线程 I 获取时的 A 了。这就是 ABA 问题。<br>ABA 问题的产生是因为变量的状态值产生了环形转换，就是变量的值可以从 A 到 B, 然后再从 B 到 A。如果变量的值只能朝着一个方向转换，比如 A 到 B , B 到 C，不构成环形，就不会存在问题。JDK 中的 AtomicStampedReference 类给每个变量的状态值都配备了一个时间戳，从而避免了 ABA 问题的产生。</p>
+<h1 id="Unsafe类"><a href="#Unsafe类" class="headerlink" title="Unsafe类"></a>Unsafe类</h1><hr>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sun.misc.Unsafe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeTest</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Unsafe UNSAFE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> stateOffset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">long</span> state = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="comment">//使用反射机制来获取Unsafe实例</span></span><br><span class="line">            Field field = Unsafe.class.getDeclaredField("theUnsafe");</span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            UNSAFE = (Unsafe) field.get(<span class="keyword">null</span>);</span><br><span class="line">            stateOffset = UNSAFE.objectFieldOffset(UnsafeTest.class.getDeclaredField("state"));</span><br><span class="line">        } <span class="keyword">catch</span> (Exception exception) {</span><br><span class="line">            System.out.println(exception.getLocalizedMessage());</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(exception);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        UnsafeTest UnsafeTest = <span class="keyword">new</span> UnsafeTest();</span><br><span class="line">        Boolean s = UNSAFE.compareAndSwapInt(UnsafeTest, stateOffset, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h1 id="Java指令重排"><a href="#Java指令重排" class="headerlink" title="Java指令重排"></a>Java指令重排</h1><hr>
+<p>Java 内存模型允许编译器和处理器对指令重排序以提高运行性能， 并且只会对<strong>不存在数据依赖性</strong>的指令重排序。 在单线程下重排序可以保证最终执行的结果与程序顺序执行的结果一致，但是在多线程下就会存在问题。</p>
+<p>多线程下如何避免指令重排的问题？可以使用 volatile 来防止指令重排：</p>
+<ul>
+<li>写 volatile 变量时，可以确保 volatile 写之前的操作不会被编译器重排序到 volatile 写之后。 </li>
+<li>读 volatile 变量时，可以确保 volatile 读之后的操作不会被编译器重排序到 volatile 读之前。</li>
+</ul>
+<h1 id="锁的概述"><a href="#锁的概述" class="headerlink" title="锁的概述"></a>锁的概述</h1><hr>
+<h2 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h2><ul>
+<li>悲观锁指对数据被外界修改持保守态度，认为数据很容易就会被其他线程修改，所以在数据被处理前先对数据进行加锁，并在整个数据处理过程中，使数据处于锁定状态。 </li>
+<li>乐观锁是相对悲观锁来说的，它认为数据在一般情况下不会造成冲突，所以在访问记录前不会加排它锁，而是在进行数据提交更新时，才会正式对数据冲突与否进行检测。一般在表中添加 version 字段或使用业务状态来实现。</li>
+</ul>
+<h2 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h2><ul>
+<li>公平锁表示线程获取锁的顺序是按照线程请求锁的时间早晚来决定的，也就是最早请求锁的线程将最早获取到锁。 </li>
+<li>而非公平锁则在运行时闯入，也就是先来不一定先得。</li>
+</ul>
+<p>ReentrantLock 提供了公平和非公平锁的实现。</p>
+<ul>
+<li>公平锁：<code>ReentrantLock pairLock =new ReentrantLock(true）</code></li>
+<li>非公平锁：<code>ReentrantLock pairLock =new ReentrantLock(false）</code>。 如果构造函数不传递参数，则默认是非公平锁。</li>
+</ul>
+<h2 id="独占锁与共享锁"><a href="#独占锁与共享锁" class="headerlink" title="独占锁与共享锁"></a>独占锁与共享锁</h2><ul>
+<li>独占锁保证任何时候都只有一个线程能得到锁， ReentrantLock 就是以独占方式实现的。</li>
+<li>共享锁则可以同时由多个线程持有，例如 ReadWriteLock 读写锁，它允许一个资源可以被多线程同时进行读操作。</li>
+</ul>
+<h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>当一个线程要获取一个被其他线程持有的独占锁时，该线程会被阻塞，那么当一个线 程再次获取它自己己经获取的锁时是否会被阻塞呢？如果不被阻塞，那么我们说该锁是可重入的，也就是只要该线程获取了该锁，那么可以无限次数（在高级篇中我们将知道，严格来说是有限次数）地进入被该锁锁住的代码。</p>
+<p>可重入锁的原理是在锁内部维护一个线程标示，用来标示该锁目前被哪个线程占用，然后关联一个计数器。一开始计数器值为 0, 说明该锁没有被任何线程占用 。 当一个钱程获取了该锁时，计数器的值会变成 1 ，这时其他线程再来获取该锁时会发现锁的所有者不是自己而被阻塞挂起。</p>
+<p>但是当获取了该锁的线程再次获取锁时发现锁拥有者是自己，就会把计数器值加＋1, 当释放锁后计数器值 -1 。 当计数器值为 0 时，锁里面的线程标示被重置为 null， 这时候被阻塞的线程会被唤醒来竞争获取该锁。</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>自旋锁则是，当前线程在获取锁时，如果发现锁已经被其他线程占有，它不马上阻塞自己，在不放弃 CPU 使用权的情况下，多次尝试获取（默认次数是 10，可以使用 －XX:PreB lockS pinsh 参数设置该值），很有可能在后面几次尝试中其他线程己经释放了锁。 </p>
+<svg style="display: none" id="MJX-SVG-global-cache"><defs></defs></svg>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>并发编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>并发编程线程基础</title>
     <url>/2020/04/16/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="http://xxx/aplayer.min.css"><script src="http://xxx/aplayer.min.js" class="aplayer-secondary-script-marker"></script><script>var meting_api='http://xxx/api.php?server=:server&type=:type&id=:id&r=:r'</script><script class="meting-secondary-script-marker" src="http://xxx/Meing.min.js"></script><h1 id="什么是线程"><a href="#什么是线程" class="headerlink" title="什么是线程"></a>什么是线程</h1><hr>
 <p>在讲线程之前，我们先来了解一下什么是进程。</p>
 <ul>
-<li>进程是代码在数据集合上的 次运行活动 是系统进行资源分配和调度的基本单位</li>
+<li>进程是代码在数据集合上的一次运行活动 是系统进行资源分配和调度的基本单位</li>
 <li>线程则是进程的一个执行路径，一个进程中至少有一个线程，进程中的多个线程共享进程的资源。</li>
 </ul>
 <p><img src="/" class="lazyload" data-src="http://q7yezbh4o.bkt.clouddn.com/image/0140.PNG"  alt=""></p>
